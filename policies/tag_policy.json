@@ -1,0 +1,24 @@
+{
+  "tags": {
+    "ucop:application": {
+      "tag_key": {
+        "@@assign": "ucop:application"
+      }
+    },
+    "ucop:createdBy": {
+      "tag_key": {
+        "@@assign": "ucop:createdBy"
+      }
+    },
+    "ucop:environment": {
+      "tag_key": {
+        "@@assign": "ucop:environment"
+      }
+    },
+    "ucop:group": {
+      "tag_key": {
+        "@@assign": "ucop:group"
+      }
+    }
+  }
+}

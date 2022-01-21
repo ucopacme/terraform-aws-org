@@ -1,0 +1,45 @@
+digraph {
+  node [style=rounded]
+  "development OU" [
+  fillcolor=yellow,
+  shape=oval,
+  style="rounded,filled"
+  ]
+  "production OU" [
+  fillcolor=red,
+  shape=oval,
+  style="rounded,filled"
+  ]
+  "test OU" [
+  fillcolor=green,
+  shape=oval,
+  style="rounded,filled"
+  ]
+  "managed OU" [
+  shape=record,
+  label="{managed OU | full SCP}"
+  ]
+  "member OU" [
+  shape=record,
+  label="{member OU | US region SCP | Config Lock SCP}"
+  ]
+  "master OU" [
+  fillcolor=purple,
+  shape=oval,
+  style="rounded,filled"
+  ]
+  root [shape=circle]
+  "unmanaged OU" [
+  fillcolor=pink,
+  shape=oval,
+  style="rounded,filled"
+  ]
+	"root" ;
+	"root" -> "unmanaged OU";
+	"root" -> "managed OU";
+	"managed OU" -> "master OU";
+	"managed OU" -> "member OU";
+	"member OU" -> "development OU";
+	"member OU" -> "production OU";
+	"member OU" -> "test OU";
+    }

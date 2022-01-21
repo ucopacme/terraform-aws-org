@@ -1,0 +1,49 @@
+this is junk, automate a nice graph of org/ou/account tree...
+
+prod OU:
+
+fdw-prod
+ccure-prod
+UCOP SharePoint
+mf-prod
+fis-prod
+big-prod
+big-data
+bigri-prod
+tes-prod
+ldc
+ppersprod
+ucop-its
+iso-prod
+segLog
+net-prod
+Auth
+
+dev OU:
+
+was-poc
+net-dev
+segConf
+redline-dev
+mf-temp
+eat-poc
+big-dev
+fis-dev
+ppersdev
+mf-dev
+was-build
+fdw-dev
+stm-dev
+ucop-setdev
+ppers-poc
+finapps-poc
+ucpath-build
+
+master OU:
+
+OrgMaster
+
+unmanaged OU:
+
+uchealth-prod
+

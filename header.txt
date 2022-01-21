@@ -1,0 +1,28 @@
+# Organization
+Our organization is the AWS EDP (enterprise discount plan) organization
+
+##  ![Organization Unit Structure](notes/ou-ucop.png)
+
+### root
+all accounts in EDP org
+
+### unmanaged
+un managed account in EDP org, no scps
+
+### managed
+all ucop managed accounts in EDP org
+
+### master
+EDP org master account
+
+### member
+non master ucop managed accounts
+
+### test
+test OU for testing org features ucop managed accounts like scp, tag policies, new rules, etc
+
+### development
+non production ucop managed accounts
+
+### production
+production ucop managed accounts
