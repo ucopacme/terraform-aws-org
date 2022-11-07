@@ -45,25 +45,6 @@ POLICY
   type        = "SERVICE_CONTROL_POLICY"
 }
 
-# full scp, allow everything
-resource "aws_organizations_policy" "full" {
-  content     = <<POLICY
-{
-  "Statement": {
-    "Action": "*",
-    "Effect": "Allow",
-    "Resource": "*",
-    "Sid": "full"
-  },
-  "Version": "2012-10-17"
-}
-POLICY
-  description = "access to everything"
-  name        = "full"
-  tags        = var.tags
-  type        = "SERVICE_CONTROL_POLICY"
-}
-
 #
 # US regions scp: allow only US regions for all services.
 # Since us-east-1 is in our allowed list, we need not be precise or exhaustive

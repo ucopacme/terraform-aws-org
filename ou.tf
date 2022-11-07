@@ -4,10 +4,6 @@ resource "aws_organizations_organizational_unit" "managed" {
   name      = "managed"
   parent_id = data.aws_organizations_organization.org.roots[0].id
 }
-resource "aws_organizations_policy_attachment" "full" {
-  policy_id = aws_organizations_policy.full.id
-  target_id = aws_organizations_organizational_unit.managed.* [0].id
-}
 resource "aws_organizations_organizational_unit" "master" {
   count     = var.enabled_ous ? 1 : 0
   name      = "master"
