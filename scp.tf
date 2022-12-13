@@ -45,27 +45,15 @@ POLICY
   type        = "SERVICE_CONTROL_POLICY"
 }
 
-# full scp, allow everything
-resource "aws_organizations_policy" "full" {
-  content     = <<POLICY
-{
-  "Statement": {
-    "Action": "*",
-    "Effect": "Allow",
-    "Resource": "*",
-    "Sid": "full"
-  },
-  "Version": "2012-10-17"
-}
-POLICY
-  description = "access to everything"
-  name        = "full"
-  tags        = var.tags
-  type        = "SERVICE_CONTROL_POLICY"
-}
-
-# US regions scp, allow only US regions for all services except for global
-# services
+#
+# US regions scp: allow only US regions for all services.
+# Since us-east-1 is in our allowed list, we need not be precise or exhaustive
+# in listing exceptions for global services (us-east-1 is the default endpoint
+# for these). But out of abundance of caution, we still list an exception for
+# organizations:* and support:*.
+# Reference:
+# https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_examples_aws_deny-requested-region.html
+#
 resource "aws_organizations_policy" "US" {
   content     = <<POLICY
 {
@@ -83,24 +71,17 @@ resource "aws_organizations_policy" "US" {
             },
             "Effect": "Deny",
             "NotAction": [
-                "budgets:*",
-                "cloudfront:*",
-                "globalaccelerator:*",
-                "iam:*",
-                "importexport:*",
                 "organizations:*",
-                "route53:*",
-                "support:*",
-                "waf:*"
+                "support:*"
             ],
             "Resource": "*",
-            "Sid": "OnlyMurica"
+            "Sid": "DenyRegions"
         }
     ],
     "Version": "2012-10-17"
 }
 POLICY
-  description = "Make AWS Great Again USA, USA, USA, USA restriction"
+  description = "Deny usage of non-US regions"
   name        = "regions"
   tags        = var.tags
   type        = "SERVICE_CONTROL_POLICY"
