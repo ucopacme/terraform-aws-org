@@ -54,6 +54,13 @@ POLICY
 # Reference:
 # https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_examples_aws_deny-requested-region.html
 #
+# The DenyUSEast2AndUSWest1Regions block allows some exceptions for principals
+# which we want (for now) to at least allow access to these regions within
+# the limits of their identity-based policies.  For example, this allows
+# AWSReservedSSO_rw or AWSReservedSSO_ro users' read-only access to Ohio and
+# N. California to still work.  This is intended to permit access for legacy
+# reference, and probably will be obsolete at some point.
+#
 resource "aws_organizations_policy" "US" {
   content     = <<POLICY
 {
@@ -75,7 +82,33 @@ resource "aws_organizations_policy" "US" {
                 "support:*"
             ],
             "Resource": "*",
-            "Sid": "DenyRegions"
+            "Sid": "DenyNonUSRegions"
+        },
+        {
+            "Condition": {
+                "StringEquals": {
+                    "aws:RequestedRegion": [
+                        "us-east-2",
+                        "us-west-1"
+                    ]
+                },
+                "ArnNotLike": {
+                    "aws:PrincipalARN": [
+                        "arn:aws:iam::*:role/CloudCustodian*",
+                        "arn:aws:iam::*:role/awsauth/service/guardduty/ManageGuardDuty*",
+                        "arn:aws:iam::*:role/aws-reserved/sso.amazonaws.com/us-west-2/AWSReservedSSO_finops_*",
+                        "arn:aws:iam::*:role/aws-reserved/sso.amazonaws.com/us-west-2/AWSReservedSSO_full_*",
+                        "arn:aws:iam::*:role/aws-reserved/sso.amazonaws.com/us-west-2/AWSReservedSSO_ro_*",
+                        "arn:aws:iam::*:role/aws-reserved/sso.amazonaws.com/us-west-2/AWSReservedSSO_rw_*"
+                    ]
+                }
+            },
+            "Effect": "Deny",
+            "NotAction": [
+                "support:*"
+            ],
+            "Resource": "*",
+            "Sid": "DenyUSEast2AndUSWest1Regions"
         }
     ],
     "Version": "2012-10-17"
