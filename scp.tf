@@ -59,7 +59,9 @@ POLICY
 # the limits of their identity-based policies.  For example, this allows
 # AWSReservedSSO_rw or AWSReservedSSO_ro users' read-only access to Ohio and
 # N. California to still work.  This is intended to permit access for legacy
-# reference, and probably will be obsolete at some point.
+# reference and lingering light usage of these two regions that does not
+# involve deploying new resources.  The need for this is probably minimal
+# and will expire over time.
 #
 resource "aws_organizations_policy" "US" {
   content     = <<POLICY
@@ -95,11 +97,17 @@ resource "aws_organizations_policy" "US" {
                 "ArnNotLike": {
                     "aws:PrincipalARN": [
                         "arn:aws:iam::*:role/CloudCustodian*",
-                        "arn:aws:iam::*:role/awsauth/service/guardduty/ManageGuardDuty*",
+                        "arn:aws:iam::*:role/DatadogIntegrationRole",
                         "arn:aws:iam::*:role/aws-reserved/sso.amazonaws.com/us-west-2/AWSReservedSSO_finops_*",
                         "arn:aws:iam::*:role/aws-reserved/sso.amazonaws.com/us-west-2/AWSReservedSSO_full_*",
                         "arn:aws:iam::*:role/aws-reserved/sso.amazonaws.com/us-west-2/AWSReservedSSO_ro_*",
-                        "arn:aws:iam::*:role/aws-reserved/sso.amazonaws.com/us-west-2/AWSReservedSSO_rw_*"
+                        "arn:aws:iam::*:role/aws-reserved/sso.amazonaws.com/us-west-2/AWSReservedSSO_rw_*",
+                        "arn:aws:iam::*:role/awsauth/service/guardduty/ManageGuardDuty*",
+                        "arn:aws:iam::229341609947:user/awsauth/*",
+                        "arn:aws:iam::280181752709:role/awsauth/fdw-prodRO",
+                        "arn:aws:iam::497286016891:role/aws-serverless-repository-StandardRedirectsForClou-12P1MJZ9MXH6Y",
+                        "arn:aws:iam::613074250484:role/awsauth/fdw-devRO",
+                        "arn:aws:iam::944706592399:role/MaillerRole"
                     ]
                 }
             },
