@@ -52,7 +52,9 @@ resource "aws_organizations_policy" "securityservices" {
 {
   "Statement": {
     "Action": [
+      "guardduty:AcceptAdministratorInvitation",
       "guardduty:UpdateOrganizationConfiguration",
+      "securityhub:AcceptAdministratorInvitation",
       "securityhub:UpdateOrganizationConfiguration"
     ],
     "Effect": "Deny",
