@@ -45,6 +45,29 @@ POLICY
   type        = "SERVICE_CONTROL_POLICY"
 }
 
+# security services scp, prevent disable or deletion of GuardDuty,
+# Security Hub, Detective, etc.
+resource "aws_organizations_policy" "securityservices" {
+  content     = <<POLICY
+{
+  "Statement": {
+    "Action": [
+      "guardduty:UpdateOrganizationConfiguration",
+      "securityhub:UpdateOrganizationConfiguration"
+    ],
+    "Effect": "Deny",
+    "Resource": "*",
+    "Sid": "SecurityServicesLock"
+  },
+  "Version": "2012-10-17"
+}
+POLICY
+  description = "security services lock"
+  name        = "securityservices"
+  tags        = var.tags
+  type        = "SERVICE_CONTROL_POLICY"
+}
+
 #
 # US regions scp: allow only US regions for all services.
 # Since us-east-1 is in our allowed list, we need not be precise or exhaustive
