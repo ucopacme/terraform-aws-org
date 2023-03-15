@@ -55,6 +55,8 @@ resource "aws_organizations_policy" "securityservices" {
       "guardduty:AcceptAdministratorInvitation",
       "guardduty:DisableOrganizationAdminAccount",
       "guardduty:UpdateOrganizationConfiguration",
+      "organizations:CreateOrganization",
+      "organizations:DeleteOrganization",
       "securityhub:AcceptAdministratorInvitation",
       "securityhub:DisableOrganizationAdminAccount",
       "securityhub:UpdateOrganizationConfiguration"
