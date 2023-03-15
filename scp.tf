@@ -53,8 +53,10 @@ resource "aws_organizations_policy" "securityservices" {
   "Statement": {
     "Action": [
       "guardduty:AcceptAdministratorInvitation",
+      "guardduty:DisableOrganizationAdminAccount",
       "guardduty:UpdateOrganizationConfiguration",
       "securityhub:AcceptAdministratorInvitation",
+      "securityhub:DisableOrganizationAdminAccount",
       "securityhub:UpdateOrganizationConfiguration"
     ],
     "Effect": "Deny",
