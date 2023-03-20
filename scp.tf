@@ -96,8 +96,28 @@ resource "aws_organizations_policy" "resourcerestrict" {
       "ec2:ModifyVolume"
     ],
     "Effect": "Deny",
-    "Resource": "*",
+    "Resource": "arn:aws:ec2:*:*:volume/*",
     "Sid": "EbsIopsRestriction"
+  },
+  "Statement": {
+    "Condition": {
+      "StringLike": {
+        "ec2:InstanceType": [
+          "c1.*",
+          "c3.*",
+          "m1.*",
+          "m3.*",
+          "r3.*",
+          "t1.*"
+        ]
+      }
+    },
+    "Action": [
+      "ec2:RunInstances"
+    ],
+    "Effect": "Deny",
+    "Resource": "arn:aws:ec2:*:*:instance/*",
+    "Sid": "Ec2InstanceTypeRestriction"
   },
   "Version": "2012-10-17"
 }
