@@ -81,8 +81,14 @@ resource "aws_organizations_policy" "resourcerestrict" {
 {
   "Statement": {
     "Condition": {
+      "StringEquals": {
+        "ec2:VolumeType": [
+          "io1",
+          "io2"
+        ]
+      },
       "NumericGreaterThan": {
-        "ec2:VolumeIops": "7000"
+        "ec2:VolumeIops": "6000"
       }
     },
     "Action": [
