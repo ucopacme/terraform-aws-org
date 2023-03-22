@@ -106,12 +106,14 @@ resource "aws_organizations_policy" "resourcerestrict" {
           "ec2:InstanceType": [
             "c1.*",
             "c3.*",
+            "c4.*",
             "g2.*",
             "i2.*",
             "m1.*",
             "m2.*",
             "m3.*",
             "r3.*",
+            "r4.*",
             "t1.*"
           ]
         }
