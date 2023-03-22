@@ -74,6 +74,67 @@ POLICY
   type        = "SERVICE_CONTROL_POLICY"
 }
 
+# resource restrict scp, prevent creation of exorbitant cost
+# resources (huge provisioned IOPS EBS, etc.)
+resource "aws_organizations_policy" "resourcerestrict" {
+  content     = <<POLICY
+{
+  "Statement": [
+    {
+      "Condition": {
+        "StringEquals": {
+          "ec2:VolumeType": [
+            "io1",
+            "io2"
+          ]
+        },
+        "NumericGreaterThan": {
+          "ec2:VolumeIops": "6000"
+        }
+      },
+      "Action": [
+        "ec2:CreateVolume",
+        "ec2:ModifyVolume"
+      ],
+      "Effect": "Deny",
+      "Resource": "arn:aws:ec2:*:*:volume/*",
+      "Sid": "EbsIopsRestriction"
+    },
+    {
+      "Condition": {
+        "StringLike": {
+          "ec2:InstanceType": [
+            "c1.*",
+            "c3.*",
+            "c4.*",
+            "g2.*",
+            "i2.*",
+            "m1.*",
+            "m2.*",
+            "m3.*",
+            "r3.*",
+            "r4.*",
+            "t1.*"
+          ]
+        }
+      },
+      "Action": [
+        "ec2:RunInstances"
+      ],
+      "Effect": "Deny",
+      "Resource": "arn:aws:ec2:*:*:instance/*",
+      "Sid": "Ec2InstanceTypeRestriction"
+    }
+  ],
+  "Version": "2012-10-17"
+}
+POLICY
+  description = "resource restrictions"
+  name        = "resourcerestrict"
+  tags        = var.tags
+  type        = "SERVICE_CONTROL_POLICY"
+}
+
 #
 # US regions scp: allow only US regions for all services.
 # Since us-east-1 is in our allowed list, we need not be precise or exhaustive

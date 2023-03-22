@@ -22,6 +22,10 @@ resource "aws_organizations_policy_attachment" "securityservices" {
   policy_id = aws_organizations_policy.securityservices.id
   target_id = aws_organizations_organizational_unit.member.* [0].id
 }
+resource "aws_organizations_policy_attachment" "resourcerestrict" {
+  policy_id = aws_organizations_policy.resourcerestrict.id
+  target_id = aws_organizations_organizational_unit.member.* [0].id
+}
 resource "aws_organizations_policy_attachment" "US" {
   policy_id = aws_organizations_policy.US.id
   target_id = aws_organizations_organizational_unit.member.* [0].id
