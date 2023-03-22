@@ -79,49 +79,51 @@ POLICY
 resource "aws_organizations_policy" "resourcerestrict" {
   content     = <<POLICY
 {
-  "Statement": {
-    "Condition": {
-      "StringEquals": {
-        "ec2:VolumeType": [
-          "io1",
-          "io2"
-        ]
+  "Statement": [
+    {
+      "Condition": {
+        "StringEquals": {
+          "ec2:VolumeType": [
+            "io1",
+            "io2"
+          ]
+        },
+        "NumericGreaterThan": {
+          "ec2:VolumeIops": "6000"
+        }
       },
-      "NumericGreaterThan": {
-        "ec2:VolumeIops": "6000"
-      }
+      "Action": [
+        "ec2:CreateVolume",
+        "ec2:ModifyVolume"
+      ],
+      "Effect": "Deny",
+      "Resource": "arn:aws:ec2:*:*:volume/*",
+      "Sid": "EbsIopsRestriction"
     },
-    "Action": [
-      "ec2:CreateVolume",
-      "ec2:ModifyVolume"
-    ],
-    "Effect": "Deny",
-    "Resource": "arn:aws:ec2:*:*:volume/*",
-    "Sid": "EbsIopsRestriction"
-  },
-  "Statement": {
-    "Condition": {
-      "StringLike": {
-        "ec2:InstanceType": [
-          "c1.*",
-          "c3.*",
-          "g2.*",
-          "i2.*",
-          "m1.*",
-          "m2.*",
-          "m3.*",
-          "r3.*",
-          "t1.*"
-        ]
-      }
-    },
-    "Action": [
-      "ec2:RunInstances"
-    ],
-    "Effect": "Deny",
-    "Resource": "arn:aws:ec2:*:*:instance/*",
-    "Sid": "Ec2InstanceTypeRestriction"
-  },
+    {
+      "Condition": {
+        "StringLike": {
+          "ec2:InstanceType": [
+            "c1.*",
+            "c3.*",
+            "g2.*",
+            "i2.*",
+            "m1.*",
+            "m2.*",
+            "m3.*",
+            "r3.*",
+            "t1.*"
+          ]
+        }
+      },
+      "Action": [
+        "ec2:RunInstances"
+      ],
+      "Effect": "Deny",
+      "Resource": "arn:aws:ec2:*:*:instance/*",
+      "Sid": "Ec2InstanceTypeRestriction"
+    }
+  ],
   "Version": "2012-10-17"
 }
 POLICY
