@@ -186,6 +186,7 @@ resource "aws_organizations_policy" "US" {
                 },
                 "ArnNotLike": {
                     "aws:PrincipalARN": [
+                        "arn:aws:iam::*:role/AWSCloudFormationStackSetExecutionRole",
                         "arn:aws:iam::*:role/CloudCustodian*",
                         "arn:aws:iam::*:role/DatadogIntegrationRole",
                         "arn:aws:iam::*:role/aws-reserved/sso.amazonaws.com/us-west-2/AWSReservedSSO_finops_*",
