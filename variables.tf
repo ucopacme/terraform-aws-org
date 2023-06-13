@@ -10,17 +10,8 @@ variable "accounts" {
     billing_access = string,
     name           = string,
     ou             = string,
-    parent_id      = string
-    tags = object({
-      ucopapplication        = string,
-      ucopavailability_level = string,
-      ucopprotection_level   = string,
-      ucopenvironment        = string,
-      ucopbusiness_contact   = string,
-      ucopservice            = string,
-      ucopservice_owner      = string,
-      ucoptechnical_contact  = string,
-    })
+    parent_id      = string,
+    tags           = map(string)
     })
   )
 }
