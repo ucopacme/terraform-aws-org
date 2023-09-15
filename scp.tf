@@ -192,7 +192,6 @@ resource "aws_organizations_policy" "US" {
                         "arn:aws:iam::*:role/aws-reserved/sso.amazonaws.com/us-west-2/AWSReservedSSO_finops_*",
                         "arn:aws:iam::*:role/aws-reserved/sso.amazonaws.com/us-west-2/AWSReservedSSO_full_*",
                         "arn:aws:iam::*:role/aws-reserved/sso.amazonaws.com/us-west-2/AWSReservedSSO_ro_*",
-#                        "arn:aws:iam::*:role/aws-reserved/sso.amazonaws.com/us-west-2/AWSReservedSSO_rw_*",
                         "arn:aws:iam::*:role/aws-reserved/sso.amazonaws.com/us-west-2/AWSReservedSSO_rw_cf250fd852feab15",
                         "arn:aws:iam::*:role/awsauth/service/guardduty/ManageGuardDuty*",
                         "arn:aws:iam::074589347111:role/ScalrIntegrationRole",
