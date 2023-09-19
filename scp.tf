@@ -197,6 +197,7 @@ resource "aws_organizations_policy" "US" {
                         "arn:aws:iam::074589347111:role/ScalrIntegrationRole",
                         "arn:aws:iam::944706592399:role/ScalrIntegrationRole",
                         "arn:aws:iam::944706592399:role/ScalrIntegrationRole01",
+                        "arn:aws:iam::944706592399:role/rds-monitoring-role",
                         "arn:aws:iam::229341609947:user/awsauth/*",
                         "arn:aws:iam::280181752709:role/awsauth/fdw-prodRO",
                         "arn:aws:iam::497286016891:role/aws-serverless-repository-StandardRedirectsForClou-12P1MJZ9MXH6Y",
