@@ -196,6 +196,7 @@ resource "aws_organizations_policy" "US" {
                         "arn:aws:iam::*:role/awsauth/service/guardduty/ManageGuardDuty*",
                         "arn:aws:iam::074589347111:role/ScalrIntegrationRole",
                         "arn:aws:iam::074589347111:role/service-role/*",
+                        "arn:aws:iam::074589347111:role/aws-service-role/*",
                         "arn:aws:iam::944706592399:role/*",
                         "arn:aws:iam::229341609947:user/awsauth/*",
                         "arn:aws:iam::280181752709:role/awsauth/fdw-prodRO",
