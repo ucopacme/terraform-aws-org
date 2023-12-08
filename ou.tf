@@ -45,3 +45,8 @@ resource "aws_organizations_organizational_unit" "production" {
   name      = "production"
   parent_id = aws_organizations_organizational_unit.member.* [0].id
 }
+resource "aws_organizations_organizational_unit" "spr" {
+  count     = var.enabled_ous ? 1 : 0
+  name      = "spr"
+  parent_id = aws_organizations_organizational_unit.member.* [0].id
+}

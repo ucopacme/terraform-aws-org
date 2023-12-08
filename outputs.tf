@@ -19,3 +19,6 @@ output "development_ou" {
 output "production_ou" {
   value = aws_organizations_organizational_unit.production
 }
+output "spr_ou" {
+  value = aws_organizations_organizational_unit.spr
+}
