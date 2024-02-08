@@ -115,7 +115,12 @@ resource "aws_organizations_policy" "resourcerestrict" {
             "m4.*",
             "r3.*",
             "r4.*",
-            "t1.*"
+            "t1.*",
+            "t2.small",
+            "t2.medium",
+            "t2.large",
+            "t2.xlarge",
+            "t2.2xlarge"
           ]
         }
       },
