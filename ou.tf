@@ -14,6 +14,11 @@ resource "aws_organizations_organizational_unit" "member" {
   name      = "member"
   parent_id = aws_organizations_organizational_unit.managed.* [0].id
 }
+resource "aws_organizations_organizational_unit" "unmanaged" {
+  count     = var.enabled_ous ? 1 : 0
+  name      = "unmanaged"
+  parent_id = data.aws_organizations_organization.org.roots[0].id
+}
 resource "aws_organizations_policy_attachment" "config" {
   policy_id = aws_organizations_policy.config.id
   target_id = aws_organizations_organizational_unit.member.* [0].id

@@ -7,6 +7,9 @@ output "aaa-ou" {
 output "managed_ou" {
   value = aws_organizations_organizational_unit.managed
 }
+output "unmanaged_ou" {
+  value = aws_organizations_organizational_unit.unmanaged
+}
 output "master_ou" {
   value = aws_organizations_organizational_unit.master
 }
