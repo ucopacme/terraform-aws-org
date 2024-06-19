@@ -104,6 +104,7 @@ resource "aws_organizations_policy" "resourcerestrict" {
       "Condition": {
         "StringLike": {
           "ec2:InstanceType": [
+            "*.metal*",
             "c1.*",
             "c3.*",
             "c4.*",
