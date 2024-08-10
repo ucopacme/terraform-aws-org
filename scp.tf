@@ -237,7 +237,7 @@ resource "aws_organizations_policy" "bucketmonopolymitigation" {
       "arn:aws:s3:::sagemaker-*-*"
     ],
     "Condition": {
-      "StringNotEquals": {
+      "StringNotEqualsIfExists": {
         "aws:ResourceOrgID": "${data.aws_organizations_organization.org.id}"
       }
     }
