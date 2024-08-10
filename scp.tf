@@ -220,3 +220,33 @@ POLICY
   tags        = var.tags
   type        = "SERVICE_CONTROL_POLICY"
 }
+
+# mitigate Bucket Monopoly attack
+resource "aws_organizations_policy" "bucketmonopolymitigation" {
+  content     = <<POLICY
+{
+  "Statement": {
+    "Sid": "BucketMonopolyMitigation",
+    "Effect": "Deny",
+    "Action": "s3:*",
+    "Resource": [
+      "arn:aws:s3:::cf-templates-*-*",
+      "arn:aws:s3:::aws-codestar-*-*",
+      "arn:aws:s3:::aws-emr-studio-*-*",
+      "arn:aws:s3:::aws-glue-assets-*-*",
+      "arn:aws:s3:::sagemaker-*-*"
+    ],
+    "Condition": {
+      "StringNotEquals": {
+        "aws:ResourceOrgID": "${data.aws_organizations_organization.org.id}"
+      }
+    }
+  },
+  "Version": "2012-10-17"
+}
+POLICY
+  description = "Bucket Monopoly mitigation"
+  name        = "bucketmonopolymitigation"
+  tags        = var.tags
+  type        = "SERVICE_CONTROL_POLICY"
+}
