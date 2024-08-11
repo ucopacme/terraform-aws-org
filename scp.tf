@@ -124,6 +124,24 @@ resource "aws_organizations_policy" "resourcerestrict" {
       "Resource": "arn:aws:ec2:*:*:instance/*",
       "Sid": "Ec2InstanceTypeRestriction"
     }
+    "Condition": {
+      "StringNotEqualsIfExists": {
+        "aws:ResourceOrgID": "${data.aws_organizations_organization.org.id}"
+      }
+    },
+    "Action": [
+      "s3:GetObject*",
+      "s3:PutObject*"
+    ],
+    "Effect": "Deny",
+    "Resource": [
+      "arn:aws:s3:::cf-templates-*-*",
+      "arn:aws:s3:::aws-codestar-*-*",
+      "arn:aws:s3:::aws-emr-studio-*-*",
+      "arn:aws:s3:::aws-glue-assets-*-*",
+      "arn:aws:s3:::sagemaker-*-*"
+    ],
+    "Sid": "BucketMonopolyMitigation"
   ],
   "Version": "2012-10-17"
 }
@@ -217,40 +235,6 @@ resource "aws_organizations_policy" "US" {
 POLICY
   description = "Deny usage of non-US regions"
   name        = "regions"
-  tags        = var.tags
-  type        = "SERVICE_CONTROL_POLICY"
-}
-
-# mitigate Bucket Monopoly attack
-# On same theme but more general, see also: https://github.com/aws-samples/data-perimeter-policy-examples/blob/main/service_control_policies/resource_perimeter_policy.json
-resource "aws_organizations_policy" "bucketmonopolymitigation" {
-  content     = <<POLICY
-{
-  "Statement": {
-    "Sid": "BucketMonopolyMitigation",
-    "Effect": "Deny",
-    "Action": [
-      "s3:GetObject*",
-      "s3:PutObject*"
-    ],
-    "Resource": [
-      "arn:aws:s3:::cf-templates-*-*",
-      "arn:aws:s3:::aws-codestar-*-*",
-      "arn:aws:s3:::aws-emr-studio-*-*",
-      "arn:aws:s3:::aws-glue-assets-*-*",
-      "arn:aws:s3:::sagemaker-*-*"
-    ],
-    "Condition": {
-      "StringNotEqualsIfExists": {
-        "aws:ResourceOrgID": "${data.aws_organizations_organization.org.id}"
-      }
-    }
-  },
-  "Version": "2012-10-17"
-}
-POLICY
-  description = "Bucket Monopoly mitigation"
-  name        = "bucketmonopolymitigation"
   tags        = var.tags
   type        = "SERVICE_CONTROL_POLICY"
 }
