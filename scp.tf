@@ -222,13 +222,17 @@ POLICY
 }
 
 # mitigate Bucket Monopoly attack
+# On same theme but more general, see also: https://github.com/aws-samples/data-perimeter-policy-examples/blob/main/service_control_policies/resource_perimeter_policy.json
 resource "aws_organizations_policy" "bucketmonopolymitigation" {
   content     = <<POLICY
 {
   "Statement": {
     "Sid": "BucketMonopolyMitigation",
     "Effect": "Deny",
-    "Action": "s3:*",
+    "Action": [
+      "s3:GetObject*",
+      "s3:PutObject*"
+    ],
     "Resource": [
       "arn:aws:s3:::cf-templates-*-*",
       "arn:aws:s3:::aws-codestar-*-*",
