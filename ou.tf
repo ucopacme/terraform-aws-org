@@ -35,6 +35,10 @@ resource "aws_organizations_policy_attachment" "US" {
   policy_id = aws_organizations_policy.US.id
   target_id = aws_organizations_organizational_unit.member.* [0].id
 }
+resource "aws_organizations_policy_attachment" "bucketmonopolymitigation" {
+  policy_id = aws_organizations_policy.bucketmonopolymitigation.id
+  target_id = aws_organizations_organizational_unit.member.* [0].id
+}
 resource "aws_organizations_organizational_unit" "test" {
   count     = var.enabled_ous ? 1 : 0
   name      = "test"
