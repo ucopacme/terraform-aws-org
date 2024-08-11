@@ -123,25 +123,27 @@ resource "aws_organizations_policy" "resourcerestrict" {
       "Effect": "Deny",
       "Resource": "arn:aws:ec2:*:*:instance/*",
       "Sid": "Ec2InstanceTypeRestriction"
-    }
-    "Condition": {
-      "StringNotEqualsIfExists": {
-        "aws:ResourceOrgID": "${data.aws_organizations_organization.org.id}"
-      }
     },
-    "Action": [
-      "s3:GetObject*",
-      "s3:PutObject*"
-    ],
-    "Effect": "Deny",
-    "Resource": [
-      "arn:aws:s3:::cf-templates-*-*",
-      "arn:aws:s3:::aws-codestar-*-*",
-      "arn:aws:s3:::aws-emr-studio-*-*",
-      "arn:aws:s3:::aws-glue-assets-*-*",
-      "arn:aws:s3:::sagemaker-*-*"
-    ],
-    "Sid": "BucketMonopolyMitigation"
+    {
+      "Condition": {
+        "StringNotEqualsIfExists": {
+          "aws:ResourceOrgID": "${data.aws_organizations_organization.org.id}"
+        }
+      },
+      "Action": [
+        "s3:GetObject*",
+        "s3:PutObject*"
+      ],
+      "Effect": "Deny",
+      "Resource": [
+        "arn:aws:s3:::cf-templates-*-*",
+        "arn:aws:s3:::aws-codestar-*-*",
+        "arn:aws:s3:::aws-emr-studio-*-*",
+        "arn:aws:s3:::aws-glue-assets-*-*",
+        "arn:aws:s3:::sagemaker-*-*"
+      ],
+      "Sid": "BucketMonopolyMitigation"
+    }
   ],
   "Version": "2012-10-17"
 }
