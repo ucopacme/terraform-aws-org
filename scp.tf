@@ -228,7 +228,9 @@ resource "aws_organizations_policy" "US" {
                         "arn:aws:iam::280181752709:role/awsauth/fdw-prodRO",
                         "arn:aws:iam::497286016891:role/aws-serverless-repository-StandardRedirectsForClou-12P1MJZ9MXH6Y",
                         "arn:aws:iam::613074250484:role/awsauth/fdw-devRO",
-                        "arn:aws:iam::944706592399:role/MaillerRole"
+                        "arn:aws:iam::944706592399:role/MaillerRole",
+                        "arn:aws:iam::400953388337:role/pdf-accessibility*",
+                        "arn:aws:iam::944706592399:role/pdf-accessibility*"
                     ]
                 }
             },
